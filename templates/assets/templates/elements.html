@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Welcome to OngMAP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{  url_for('static', filename='/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{  url_for('static', filename='/css/noscript.css') }}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="/" class="logo">Walking Navigation</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="/index">Input Path</a></li>
+							<li><a>Satisfaction WAY</a></li>
+							<li class="active"><a href="elements.html">Shortest WAY</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">NOW, A Way We Suggest</span>
+									<h1>the FASTEST way<br />
+										recommendation.</h1>
+								</header>
+								<h2>Result</h2>
+								<head>
+									<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+									<title>simpleMap</title>
+									<script	src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+									<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx60fbd0ade3a54da3a4ed1f96729dc100"></script>
+									<script type="text/javascript">
+							
+							var map;
+							var marker_s, marker_e;
+
+
+							//경로그림정보
+							var drawInfoArr = [];
+
+							function initTmap(){
+								// 1. 지도 띄우기
+
+								map = new Tmapv2.Map("map_div", {
+									center: new Tmapv2.LatLng({{dep_lat}}, {{dep_lng}}),
+									width : "100%",
+									height : "400px",
+									zoom : 15,
+									zoomControl : true,
+									scrollwheel : true
+								});
+
+								// 시작, 도착 심볼찍기
+								// 시작
+								marker_s = new Tmapv2.Marker({
+									position : new Tmapv2.LatLng({{dep_lat}}, {{dep_lng}}),
+									icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+									iconSize : new Tmapv2.Size(24, 38),
+									map:map
+								});
+
+								// 도착
+								marker_e = new Tmapv2.Marker({
+									position : new Tmapv2.LatLng({{des_lat}}, {{des_lng}}),
+									icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
+									iconSize : new Tmapv2.Size(24, 38),
+									map:map
+								});
+
+
+								{% for tmp in temp %}
+								marker = new Tmapv2.Marker({
+                                position : new Tmapv2.LatLng({{ tmp[0]}}, {{ tmp[1]}}),
+                                icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_{{loop.index}}.png",
+                                iconSize : new Tmapv2.Size(24, 38),
+                                map:map
+                                });
+                                {% endfor %}
+
+
+								var headers = {};
+								headers["appKey"]="발급AppKey";
+							}
+
+
+
+							</script>
+
+							<body onload="initTmap()"><!-- 맵 생성 실행 -->
+								<p id="result"></p>
+
+
+									<div id="map_wrap" class="map_wrap">
+										<div id="map_div"></div>
+									</div>
+								</body>
+
+							
+
+							</section>
+					</div>
+			
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
